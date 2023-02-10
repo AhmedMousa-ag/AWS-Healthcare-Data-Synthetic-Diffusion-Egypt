@@ -1,4 +1,4 @@
-# Data Synthetics Project
+# Data Synthetics Project Proposal
 
 ## Domain Background
 
