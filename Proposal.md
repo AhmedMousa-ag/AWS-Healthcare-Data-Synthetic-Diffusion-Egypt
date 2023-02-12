@@ -16,13 +16,23 @@
 
 But you want to preserve your privacy and don't want your information out? At the same time, some scientists need this information for to help future patients to come up with a cure or something to help others! and of course, scientists want to preserve your privacy.
 
+*A potential solution is data synthetic generation.*
+
 ## Solution Statement
 
 **Why Synthetic Data in Healthcare?.** Synthetic data can protect patient privacy and augment clinical research as synthetic data is a derivative of the original real data but no synthetic data point can be attributed to a single real data point.
 
 ## Datasets and Inputs
 
-The dataset is a tabular data that contains 60 rows of blood analysis of Rheumatoid arthritis patience. The data set was obtained from a hospital in Cairo, Egypt.
+The dataset is a tabular data that contains 61 rows of blood analysis of Rheumatoid arthritis patience. The data set was obtained from a hospital in Cairo, Egypt.
+
+A pairplot of inputs can be found below:
+
+![inputs pair plot](pairplot.png)
+
+Data is for unsupervised use, thereby no target label is required.
+
+Input and output shapes are: [61, 17]
 
 Data is approved only for the context of this project, and all ids can't be traced to this dataset.
 
@@ -40,7 +50,7 @@ This project should be approached as follows:
 
 1- Analyize variables distributions as the generative model should be able to generate the same data distribution.
 
-2- Picking a generative model which could be one of the next options:
+2- Picking a generative model which is suggested to be one of the next options:
 
 * GANs model
 * AutoEncoder
@@ -52,7 +62,7 @@ This project should be approached as follows:
 
 4- Visualizing generated data distribution
 
-**Platform to use:** 
+**Platform to use:**
 
 * Will use AWS SageMaker service for training and deploying the model.
 * Will use AWS Lambda for processing data triggered by uploading files to s3 buckets.
