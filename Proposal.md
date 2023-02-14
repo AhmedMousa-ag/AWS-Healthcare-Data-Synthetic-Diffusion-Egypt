@@ -28,7 +28,11 @@ The dataset is a tabular data that contains 61 rows of blood analysis of Rheumat
 
 A pairplot of inputs can be found below:
 
+<<<<<<< HEAD
 ![inputs pair plot](pairplot.png)
+=======
+![image](https://user-images.githubusercontent.com/59775002/218299875-f42e90bd-4e8d-4213-a811-ad550a3c42b1.png)
+>>>>>>> d8b8f238ed580c7fda3aa2f17b21e757c11ee4f2
 
 Data is for unsupervised use, thereby no target label is required.
 
