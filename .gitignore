@@ -3,3 +3,4 @@ draft.py
 *.pdf
 Dataset/
 __pycache__
+models/*
