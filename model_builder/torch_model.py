@@ -45,31 +45,6 @@ class Diffusion:
         n_shape = n.shape[0] 
         return torch.randint(low=1, high=self.noise_steps, size=(n_shape,))
 
-    def sample(self, model, n, labels, cfg_scale=3):
-        labels = labels
-        model = model
-        model.eval()
-        with torch.no_grad():
-            x = torch.randn(n).to(self.device)
-            for i in tqdm(reversed(range(1, self.noise_steps)), position=0):
-                t = (torch.ones(n).to(self.device) * i).long().to(self.device)
-                predicted_noise = model(x, t, labels)
-                if cfg_scale > 0:
-                    uncond_predicted_noise = model(x, t, None)
-                    predicted_noise = torch.lerp(uncond_predicted_noise, predicted_noise, cfg_scale)
-                alpha = self.alpha[t][:, None]
-                alpha_hat = self.alpha_hat[t][:, None]
-                beta = self.beta[t][:, None]
-                if i > 1:
-                    noise = torch.randn_like(x)
-                else:
-                    noise = torch.zeros_like(x)
-                x = 1 / torch.sqrt(alpha) * (x - ((1 - alpha) / (torch.sqrt(1 - alpha_hat))) * predicted_noise) + torch.sqrt(beta) * noise
-        model.train()
-        x = (x.clamp(-1, 1) + 1) / 2
-        x = (x * 255).type(torch.uint8)
-        return x
-
     
 
 

@@ -33,16 +33,16 @@ class EMA_model:
 
 
 class Generator_conditional(nn.Module):
-    def __init__(self, c_in=15, c_out=15, time_dim=1, num_classes=2):
+    def __init__(self, input_features=15, output_features=15, time_dim=1, num_classes=2):
         super().__init__()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.time_dim = time_dim
-        self.inc = Linear(c_in, 15)
+        self.inc = Linear(input_features, 15)
         self.flatten = nn.Flatten()
         self.s1 = Linear(15,64)
         self.s2 = Linear(64,120)
         self.s3 = Linear(120,64)
-        self.outc = Linear(64, c_out)
+        self.outc = Linear(64, output_features)
         if num_classes is not None:
             self.label_emb = nn.Embedding(num_classes, time_dim)
     
