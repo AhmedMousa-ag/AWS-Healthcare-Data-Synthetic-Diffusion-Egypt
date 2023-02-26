@@ -18,7 +18,6 @@ class noise_data_producer():
                     label = torch.tensor([0]).to(self.device)
                 else:
                     label = torch.tensor([1]).to(self.device)
-                #label = torch.randint(low=0,high=2,size=(1,)).to(self.device)
             noise_sample,time_step = self.produce_noise_sample()
             predicted_data =np.array(self.model(noise_sample,time_step,label).cpu())
 
