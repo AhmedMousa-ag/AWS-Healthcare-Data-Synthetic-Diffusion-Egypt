@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-class EMA:
+class EMA_model:
     def __init__(self, beta):
         super().__init__()
         self.beta = beta
@@ -33,14 +33,14 @@ class EMA:
 
 
 class Generator_conditional(nn.Module):
-    def __init__(self, c_in=16, c_out=16, time_dim=1, num_classes=2):#, device="cuda"):
+    def __init__(self, c_in=15, c_out=15, time_dim=1, num_classes=2):
         super().__init__()
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.time_dim = time_dim
-        self.inc = Linear(c_in, 16)
+        self.inc = Linear(c_in, 15)
         self.flatten = nn.Flatten()
-        self.s1 = Linear(16,32)
-        self.outc = Linear(32, c_out)
+        self.s1 = Linear(15,64)
+        self.outc = Linear(64, c_out)
         if num_classes is not None:
             self.label_emb = nn.Embedding(num_classes, time_dim)
     
@@ -59,7 +59,7 @@ class Generator_conditional(nn.Module):
         t = self.pos_encoding(t, self.time_dim)
         
         x1 = self.inc(x)
-
+        x1 = F.relu(x1)
         if y is not None:
             t += self.label_emb(y)
         
@@ -68,5 +68,7 @@ class Generator_conditional(nn.Module):
         x2 = torch.cat((x1,t),1)
         x2 = torch.squeeze(x2)
         x2 = self.s1(x2)
+        x2 = F.relu(x2)
         output = self.outc(x2)
+        output = F.relu(output)
         return output
